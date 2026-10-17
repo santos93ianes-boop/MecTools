@@ -1,0 +1,6 @@
+{
+  "appId": "com.sanmapps.mectoolspro",
+  "appName": "MecTools Pro",
+  "webDir": "www",
+  "android": { "allowMixedContent": false }
+}
