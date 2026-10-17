@@ -1,23 +1,39 @@
-# MecTools Pro v1.3 — projeto pronto para enviar ao GitHub
+# MecTools Pro v1.4 — Pacote GitHub para APK Android
 
-## Conteúdo
-- `www/index.html`: aplicativo offline, incluindo **Alinhamento CENTAC — dois relógios reversos** e calculadoras de manutenção.
-- `.github/workflows/android-apk.yml`: automação GitHub Actions para gerar um **APK debug**.
-- `capacitor.config.json`, `package.json`: configuração Capacitor Android.
-- `scripts/check-web.js`: validação sintática do JavaScript antes da compilação.
+Este projeto contém o app web offline em `www/index.html`, calculadoras industriais e o módulo de alinhamento CENTAC com dois relógios. **Alinhamento ainda não validado para correções reais em campo.**
 
-## Publicar no GitHub pelo navegador
-1. **Extraia o ZIP no celular ou computador.** Não envie apenas o arquivo ZIP para o repositório.
-2. Crie um repositório em https://github.com/new, com branch `main`.
-3. No repositório, escolha **Add file → Upload files** e envie os arquivos e as pastas extraídos, mantendo a estrutura. A pasta **`.github/workflows/`** precisa estar no repositório.
-4. Se o gerenciador de arquivos não mostrar a pasta oculta `.github`, crie o arquivo pelo GitHub em **Add file → Create new file** com o nome exato `.github/workflows/android-apk.yml` e cole o conteúdo do arquivo do ZIP.
-5. Abra **Actions → Compilar MecTools Pro APK → Run workflow**. O workflow também é executado automaticamente a cada push em `main` ou `master`.
-6. Quando aparecer a execução concluída, abra-a e baixe **MecTools-Pro-APK-debug** em **Artifacts**.
-7. Extraia o artefato baixado para obter `app-debug.apk` e instale no Android.
+## Estrutura que deve aparecer na raiz do GitHub
 
-## Atenção
-- Este pacote **não é um APK pronto**; a compilação acontece no GitHub, e depende da disponibilidade das dependências Android/Node.
-- APK **debug** é para teste, não para publicação comercial na Play Store. Para distribuir, será necessário gerar um APK/AAB de release assinado.
-- O módulo de alinhamento é um **protótipo didático** ainda sem validação de fórmulas e polaridades com dados reais/OEM. Não use os resultados para corrigir pés de máquinas reais sem validação técnica.
-- A curva de surge também é apenas ilustrativa.
-- Esta versão ZIP não sincroniza automaticamente com o projeto Lovable.
+```
+.github/workflows/android-apk.yml
+www/index.html
+scripts/check-web.js
+package.json
+capacitor.config.json
+README.md
+.gitignore
+```
+
+**IMPORTANTE:** O GitHub não compila o ZIP enviado como arquivo único. Extraia o ZIP no computador e envie os arquivos **preservando as pastas** `.github`, `www` e `scripts`. Em Windows, pastas que começam com ponto podem estar ocultas; configure para exibir itens ocultos. A pasta `www` deve conter `index.html`, e não apenas um arquivo vazio. Não coloque uma pasta adicional envolvendo tudo na raiz do repositório.
+
+## Substituir o projeto antigo
+
+1. Faça backup do repositório antigo ou mantenha seu histórico. Não é necessário excluir o repositório.
+2. Envie o conteúdo desta pasta para a raiz do repositório. Remova arquivos antigos conflitantes, em especial outros workflows `.yml` que possam falhar independentemente.
+3. Confira a aba **Código** e a estrutura acima.
+4. Abra **Ações** > **Compilar MecTools Pro APK** > **Run workflow** (na ramificação principal).
+5. Aguarde a execução verde e baixe o artefato `MecTools-Pro-APK-debug`.
+6. Extraia o artefato ZIP e instale `app-debug.apk` no Android.
+
+O arquivo APK é **debug**, para testes, não uma versão release assinada para loja. A compilação depende de GitHub Actions, Android SDK e download de dependências.
+
+## Problemas anteriores corrigidos
+
+- Workflow contempla a ramificação `principal` além de `main` e `master`.
+- Android SDK especifica explicitamente `platform-tools`, `platforms;android-35`, `build-tools;35.0.0` para não tentar instalar pacote inexistente `tools`.
+- Validação prévia exige `www/index.html` e `scripts/check-web.js` antes do Capacitor.
+- Comandos do Capacitor executados na raiz, cujo `webDir` é `www`.
+
+## Segurança de engenharia
+
+O módulo CENTAC usa leituras manuais e modelo geométrico demonstrativo. Verifique método de montagem, sinais, bracket sag, dilatação térmica, tolerâncias OEM e validação metrológica. Não use resultados não validados para mover máquinas industriais.
