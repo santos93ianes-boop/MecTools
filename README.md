@@ -37,3 +37,18 @@ O arquivo APK é **debug**, para testes, não uma versão release assinada para 
 ## Segurança de engenharia
 
 O módulo CENTAC usa leituras manuais e modelo geométrico demonstrativo. Verifique método de montagem, sinais, bracket sag, dilatação térmica, tolerâncias OEM e validação metrológica. Não use resultados não validados para mover máquinas industriais.
+
+
+## Atualização v1.5 — 17/10/2026
+- Conversão direta de mícrons (µm) ↔ mils (0,001 polegada).
+- Novo diagnóstico de vazão de descarga: medidor, velocidade média medida, vazão mássica ou apenas diagnóstico sem medição.
+- Dados de inlet/IGV, blow-off, corrente, tensão, fator de potência, pressões e temperaturas. Abertura de válvulas e corrente NÃO geram vazão por si só.
+- Estimativa de densidade por gás ideal, vazão mássica e balanço da blow-off apenas quando as grandezas são conhecidas e compatíveis.
+- Orientação dos pontos físicos de coleta e referências axiais A/B, F1/F2 para alinhamento CENTAC.
+- Módulos anteriores preservados, incluindo surge demonstrativo.
+
+### Envio ao GitHub
+Extraia este ZIP e envie **o conteúdo interno** para a raiz do repositório, incluindo `.github/workflows/android-apk.yml` e `www/index.html`. O arquivo ZIP sozinho não aciona a compilação. O GitHub Actions gera um APK debug quando a compilação concluir com sucesso.
+
+### Aviso técnico
+As estimativas não substituem medições de vazão calibradas, dados do fabricante, procedimentos de segurança e validação do alinhamento.
